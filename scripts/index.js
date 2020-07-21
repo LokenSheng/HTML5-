@@ -104,12 +104,31 @@ container.onfullscreenchange = function () {
     }
 }
 
-container.onmousemove = function () {
-    if (document.fullscreen) {
-        hideBar();
+// container.onmousemove = function () {
+//     if (document.fullscreen) {
+//         hideBar();
+//     }   
+// }
+
+(function () {
+    let isMove = false,
+        timer = null;
+    container.onmousemove = function () {
+        isMove = true;
+        clearTimeout(timer);
+        console.log(isMove); // 移动时
+        timer = setTimeout(function () {
+            isMove = false;
+            console.log(isMove); 
+            divToolBar.style.display = "none";
+            divModal.style.cursor = "none";
+        }, 2000);
+        if(isMove){
+            divToolBar.style.display = "block";
+            divModal.style.cursor = "pointer";
+        }
     }
-    
-}
+}());
 
 //工具函数区域
 
